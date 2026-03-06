@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🦞 龙虾 4S 店 - 专业 AI 助理服务中心</title>
+  <style>
+    :root {
+      --primary: #FF6B35;
+      --primary-dark: #E55A2B;
+      --secondary: #004E89;
+      --accent: #FFB347;
+      --bg: #FAFAFA;
+      --card-bg: #FFFFFF;
+      --text: #1A1A1A;
+      --text-light: #666666;
+      --border: #E0E0E0;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 80px 20px 60px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    header .subtitle {
+      font-size: 1.25rem;
+      opacity: 0.95;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    header .emoji {
+      font-size: 4rem;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Services Section */
+    .services {
+      padding: 60px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title h2 {
+      font-size: 2.25rem;
+      color: var(--secondary);
+      margin-bottom: 12px;
+    }
+
+    .section-title p {
+      color: var(--text-light);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Service Cards */
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-bottom: 60px;
+    }
+
+    .service-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--primary);
+    }
+
+    .service-card.recommended {
+      border-color: var(--primary);
+    }
+
+    .service-card.recommended::before {
+      content: '🔥 推荐';
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: var(--primary);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .service-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .service-card h3 {
+      font-size: 1.5rem;
+      color: var(--secondary);
+      margin-bottom: 12px;
+    }
+
+    .service-card .price {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .service-card .price-unit {
+      font-size: 1rem;
+      color: var(--text-light);
+      font-weight: 400;
+    }
+
+    .service-card .description {
+      color: var(--text-light);
+      margin-bottom: 20px;
+      min-height: 60px;
+    }
+
+    .service-card .features {
+      list-style: none;
+      margin-bottom: 24px;
+    }
+
+    .service-card .features li {
+      padding: 8px 0;
+      color: var(--text-light);
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .service-card .features li:last-child {
+      border-bottom: none;
+    }
+
+    .service-card .features li::before {
+      content: '✓ ';
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .btn {
+      display: inline-block;
+      width: 100%;
+      padding: 14px 24px;
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(255,107,53,0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Why Choose Us */
+    .why-us {
+      background: linear-gradient(135deg, #FFF5F0 0%, #FFF 100%);
+      padding: 80px 0;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+    }
+
+    .feature-item {
+      text-align: center;
+      padding: 30px;
+    }
+
+    .feature-icon {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+    }
+
+    .feature-item h3 {
+      font-size: 1.35rem;
+      color: var(--secondary);
+      margin-bottom: 12px;
+    }
+
+    .feature-item p {
+      color: var(--text-light);
+      line-height: 1.7;
+    }
+
+    /* CTA Section */
+    .cta {
+      background: linear-gradient(135deg, var(--secondary) 0%, #003366 100%);
+      color: white;
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    .cta h2 {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+    }
+
+    .cta p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta .btn {
+      background: white;
+      color: var(--secondary);
+      max-width: 280px;
+    }
+
+    .cta .btn:hover {
+      background: var(--accent);
+      color: var(--secondary);
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 480px;
+      width: 90%;
+      position: relative;
+      animation: modalSlideIn 0.3s ease;
+    }
+
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-light);
+      padding: 8px;
+      line-height: 1;
+    }
+
+    .modal-close:hover {
+      color: var(--text);
+    }
+
+    .modal h3 {
+      font-size: 1.75rem;
+      color: var(--secondary);
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .modal .modal-subtitle {
+      text-align: center;
+      color: var(--text-light);
+      margin-bottom: 30px;
+    }
+
+    .contact-methods {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .contact-method {
+      text-align: center;
+      padding: 24px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .contact-method:hover {
+      border-color: var(--primary);
+      background: #FFF5F0;
+    }
+
+    .contact-method .icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+
+    .contact-method h4 {
+      font-size: 1.15rem;
+      color: var(--secondary);
+      margin-bottom: 8px;
+    }
+
+    .contact-method p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    .qr-placeholder {
+      width: 150px;
+      height: 150px;
+      background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+      margin: 20px auto;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .qr-placeholder img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .email-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .email-form input,
+    .email-form textarea {
+      padding: 14px 18px;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.3s ease;
+    }
+
+    .email-form input:focus,
+    .email-form textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .email-form textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--secondary);
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    footer p {
+      opacity: 0.8;
+      font-size: 0.95rem;
+    }
+
+    footer .emoji {
+      margin-bottom: 12px;
+      font-size: 2rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+
+      header .subtitle {
+        font-size: 1rem;
+      }
+
+      .section-title h2 {
+        font-size: 1.75rem;
+      }
+
+      .service-card .price {
+        font-size: 1.75rem;
+      }
+
+      .modal {
+        padding: 24px;
+      }
+
+      .qr-placeholder {
+        width: 150px;
+        height: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <span class="emoji">🦞</span>
+    <h1>龙虾 4S 店</h1>
+    <p class="subtitle">专业 AI 助理服务中心 · 配置 · 维护 · 升级 · 一站式托管</p>
+  </header>
+
+  <!-- Services -->
+  <section class="services">
+    <div class="container">
+      <div class="section-title">
+        <h2>🔧 服务项目</h2>
+        <p>无论您是刚入门还是需要深度定制，我们提供全方位的龙虾养护服务</p>
+      </div>
+
+      <div class="service-grid">
+        <!-- Service 1 -->
+        <div class="service-card">
+          <div class="service-icon">🦞</div>
+          <h3>新虾配置</h3>
+          <div class="price">¥299 <span class="price-unit">/次</span></div>
+          <p class="description">从零开始配置您的专属 AI 助理，开箱即用</p>
+          <ul class="features">
+            <li>基础环境搭建</li>
+            <li>渠道接入配置（微信/飞书/钉钉）</li>
+            <li>基础技能安装</li>
+            <li>使用培训指导</li>
+          </ul>
+          <button class="btn btn-outline" onclick="openModal('新虾配置')">咨询服务</button>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="service-card recommended">
+          <div class="service-icon">🛠️</div>
+          <h3>定期保养</h3>
+          <div class="price">¥699 <span class="price-unit">/月</span></div>
+          <p class="description">月度维护套餐，确保您的龙虾持续稳定运行</p>
+          <ul class="features">
+            <li>系统健康检查</li>
+            <li>故障排查与修复</li>
+            <li>技能更新升级</li>
+            <li>性能优化调优</li>
+            <li>7×12 小时技术支持</li>
+          </ul>
+          <button class="btn" onclick="openModal('定期保养')">咨询服务</button>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="service-card">
+          <div class="service-icon">⚡</div>
+          <h3>紧急救援</h3>
+          <div class="price">¥99 <span class="price-unit">/小时</span></div>
+          <p class="description">突发问题快速响应，最小化业务中断</p>
+          <ul class="features">
+            <li>Gateway 宕机恢复</li>
+            <li>Bot 失联修复</li>
+            <li>配置错误修正</li>
+            <li>数据备份恢复</li>
+          </ul>
+          <button class="btn btn-outline" onclick="openModal('紧急救援')">咨询服务</button>
+        </div>
+
+        <!-- Service 4 -->
+        <div class="service-card">
+          <div class="service-icon">🎯</div>
+          <h3>性能升级</h3>
+          <div class="price">¥1299 <span class="price-unit">/次</span></div>
+          <p class="description">深度定制与优化，释放龙虾全部潜力</p>
+          <ul class="features">
+            <li>自定义技能开发</li>
+            <li>工作流自动化设计</li>
+            <li>多助理协同配置</li>
+            <li>企业级集成对接</li>
+          </ul>
+          <button class="btn btn-outline" onclick="openModal('性能升级')">咨询服务</button>
+        </div>
+
+        <!-- Service 5 -->
+        <div class="service-card">
+          <div class="service-icon">👑</div>
+          <h3>全托管 VIP</h3>
+          <div class="price">¥2999 <span class="price-unit">/月</span></div>
+          <p class="description">完全托管服务，您只需提需求，其余交给我们</p>
+          <ul class="features">
+            <li>24×7 全天候监控</li>
+            <li>专属技术顾问</li>
+            <li>优先响应通道</li>
+            <li>月度服务报告</li>
+            <li>无限次技能调整</li>
+          </ul>
+          <button class="btn" onclick="openModal('全托管 VIP')">咨询服务</button>
+        </div>
+
+        <!-- Service 6 -->
+        <div class="service-card">
+          <div class="service-icon">📚</div>
+          <h3>技能培训</h3>
+          <div class="price">¥499 <span class="price-unit">/小时</span></div>
+          <p class="description">一对一教学，让您成为养龙虾专家</p>
+          <ul class="features">
+            <li>基础操作培训</li>
+            <li>高级功能讲解</li>
+            <li>最佳实践分享</li>
+            <li>常见问题解答</li>
+          </ul>
+          <button class="btn btn-outline" onclick="openModal('技能培训')">咨询服务</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="why-us">
+    <div class="container">
+      <div class="section-title">
+        <h2>🌟 为什么选择龙虾 4S 店</h2>
+        <p>专业、可靠、省心 —— 让您的 AI 助理始终保持最佳状态</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-icon">👨‍💼</div>
+          <h3>专业团队</h3>
+          <p>经验丰富的工程师团队，熟悉各种部署场景和问题排查，累计服务 100+ 企业客户</p>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">⚡</div>
+          <h3>快速响应</h3>
+          <p>问题发生时及时介入，紧急问题 30 分钟内响应，最大限度减少业务中断</p>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">🛡️</div>
+          <h3>安全可靠</h3>
+          <p>严格的数据保密协议，操作全程可追溯，确保您的业务数据安全</p>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">💰</div>
+          <h3>透明定价</h3>
+          <p>明码标价无隐形消费，服务前确认方案，让您每一分钱都花得明白</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container">
+      <h2>🦞 让专业的人，养专业的龙虾</h2>
+      <p>无论您是刚入门还是需要深度定制，我们的专家团队为您提供一站式服务</p>
+      <button class="btn" onclick="openModal('立即咨询')">立即咨询</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="emoji">🦞</div>
+    <p>© 2026 龙虾 4S 店 · 专业 AI 助理服务中心</p>
+    <p>Powered by OpenClaw · 让每个人都能拥有自己的 AI 助理</p>
+  </footer>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="contactModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <h3>📬 联系我们</h3>
+      <p class="modal-subtitle" id="modalServiceTitle">请选择联系方式</p>
+
+      <div class="contact-methods">
+        <!-- WeChat QR -->
+        <div class="contact-method" onclick="showQR()">
+          <div class="icon">💬</div>
+          <h4>微信咨询</h4>
+          <p>扫描二维码添加客服</p>
+        </div>
+
+        <!-- Email -->
+        <div class="contact-method" onclick="showEmailForm()">
+          <div class="icon">📧</div>
+          <h4>邮箱留言</h4>
+          <p>发送需求至我们的邮箱</p>
+        </div>
+      </div>
+
+      <!-- QR Code Section -->
+      <div id="qrSection" style="display: none;">
+        <div class="qr-placeholder">
+         <img src="qrcode.png" />
+        </div>
+        <p style="text-align: center; color: var(--text-light); font-size: 0.9rem;">
+          微信扫码添加客服，备注"龙虾 4S 店咨询"
+        </p>
+      </div>
+
+      <!-- Email Form Section -->
+      <div id="emailSection" class="email-form" style="display: none;">
+        <input type="text" placeholder="您的姓名" id="emailName">
+        <input type="email" placeholder="您的邮箱" id="emailAddress">
+        <input type="text" placeholder="服务类型" id="emailService" readonly>
+        <textarea placeholder="请描述您的具体需求..." id="emailMessage"></textarea>
+        <button class="btn" onclick="submitEmail()">发送留言</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentService = '';
+
+    function openModal(service) {
+      currentService = service;
+      document.getElementById('modalServiceTitle').textContent = `咨询：${service}`;
+      document.getElementById('emailService').value = service;
+      document.getElementById('contactModal').classList.add('active');
+      resetModal();
+    }
+
+    function closeModal() {
+      document.getElementById('contactModal').classList.remove('active');
+    }
+
+    function resetModal() {
+      document.getElementById('qrSection').style.display = 'none';
+      document.getElementById('emailSection').style.display = 'none';
+      document.querySelector('.contact-methods').style.display = 'flex';
+    }
+
+    function showQR() {
+      document.querySelector('.contact-methods').style.display = 'none';
+      document.getElementById('qrSection').style.display = 'block';
+    }
+
+    function showEmailForm() {
+      document.querySelector('.contact-methods').style.display = 'none';
+      document.getElementById('emailSection').style.display = 'flex';
+    }
+
+    function submitEmail() {
+      const name = document.getElementById('emailName').value;
+      const email = document.getElementById('emailAddress').value;
+      const service = document.getElementById('emailService').value;
+      const message = document.getElementById('emailMessage').value;
+
+      if (!name || !email || !message) {
+        alert('请填写完整信息');
+        return;
+      }
+
+      // 这里可以替换为实际的邮件发送逻辑
+      const mailtoLink = `mailto:bxt_jason@163.com?subject=龙虾 4S 店咨询 - ${service}&body=姓名：${name}%0D%0A邮箱：${email}%0D%0A服务：${service}%0D%0A%0D%0A需求描述：%0D%0A${message}`;
+      
+      window.location.href = mailtoLink;
+      
+      alert('即将打开您的邮箱客户端发送邮件');
+      closeModal();
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('contactModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeModal();
+      }
+    });
+
+    // ESC key to close
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>
